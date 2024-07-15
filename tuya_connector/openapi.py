@@ -210,7 +210,8 @@ class TuyaOpenAPI:
                 url = {self.endpoint + path},\
                 params = {params},\
                 body = {filter_logger(body)},\
-                t = {int(time.time()*1000)}"
+                t = {int(time.time()*1000)}, \
+                headers = {headers}"
         )
 
         response = self.session.request(
@@ -252,7 +253,8 @@ class TuyaOpenAPI:
         return self.__request("GET", path, params, None)
 
     def post(
-        self, path: str, body: Optional[Dict[str, Any]] = None
+        self, path: str, body: Optional[Dict[str, Any]] = None, params: Optional[Dict[str, Any]] = None
+
     ) -> Dict[str, Any]:
         """Http Post.
 
@@ -265,7 +267,7 @@ class TuyaOpenAPI:
         Returns:
             response: response body
         """
-        return self.__request("POST", path, None, body)
+        return self.__request("POST", path, params, body)
 
     def put(
         self, path: str, body: Optional[Dict[str, Any]] = None
@@ -281,7 +283,7 @@ class TuyaOpenAPI:
         Returns:
             response: response body
         """
-        return self.__request("PUT", path, None, body)
+        return self.__request("PUT", path, params, body)
 
     def delete(
         self, path: str, params: Optional[Dict[str, Any]] = None
